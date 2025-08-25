@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geolocation Project</title>
+<style>
+body{font-family:'Segoe UI',Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:linear-gradient(135deg,#74ABE2,#5563DE);color:white;flex-direction:column;}
+button{background-color:#4a63e7;color:white;font-size:1.2rem;padding:15px 30px;border:none;border-radius:10px;margin:10px;cursor:pointer;}
+button:hover{background-color:#3a50c9;}
+#message{font-size:1.3rem;font-weight:600;text-align:center;max-width:320px;margin-bottom:15px;}
+</style>
+</head>
+<body>
+
+<button onclick="getLocation()">Where am I?</button>
+<div id="message"></div>
+<a href="index.html"><button>⬅ Back</button></a>
+
+<script>
+const KBU={lat:13.80265,lon:100.73699};
+
+function getLocation(){
+  const msg=document.getElementById('message');
+  if(!navigator.geolocation){msg.textContent="Geolocation not supported";return;}
+  msg.textContent="Locating...";
+  navigator.geolocation.getCurrentPosition(success,error);
+  function success(pos){
+    const lat=pos.coords.latitude;
+    const lon=pos.coords.longitude;
+    const dist=getDistance(lat,lon,KBU.lat,KBU.lon);
+    msg.textContent=`You're ${dist.toFixed(2)} km from KBU Romklao Campus`;
+  }
+  function error(){msg.textContent="Unable to get location.";}
+}
+
+function getDistance(lat1,lon1,lat2,lon2){
+  const R=6371;
+  const dLat=deg2rad(lat2-lat1);
+  const dLon=deg2rad(lon2-lon1);
+  const a=Math.sin(dLat/2)**2 + Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.sin(dLon/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function deg2rad(d){return d*(Math.PI/180);}
+</script>
+
+</body>
+</html>

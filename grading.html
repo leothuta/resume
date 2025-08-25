@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Grading System</title>
+<style>
+body{font-family:'Segoe UI',Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:linear-gradient(135deg,#74ABE2,#5563DE);color:#333;}
+.container{background:white;padding:25px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);width:360px;text-align:center;}
+h2{margin-bottom:20px;color:#222;}
+button{padding:12px 20px;margin:8px;border:none;border-radius:8px;cursor:pointer;width:80%;background-color:#4a63e7;color:white;}
+button:hover{background-color:#3a50c9;}
+input{padding:10px;margin:8px 0;width:80%;border-radius:6px;border:1px solid #ccc;text-align:center;}
+#gradeResult{margin-top:15px;font-weight:bold;min-height:20px;color:#444;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Calculate Grade</h2>
+  <label>Enter Score:</label><br>
+  <input type="number" id="scoreInput" min="0" max="100" placeholder="0-100"><br>
+  <button onclick="calculateGrade()">Submit</button>
+  <div id="gradeResult"></div>
+  <a href="index.html"><button>⬅ Back</button></a>
+</div>
+
+<script>
+function calculateGrade(){
+  let score=parseFloat(document.getElementById('scoreInput').value);
+  let res=document.getElementById('gradeResult');
+  if(isNaN(score)||score<0||score>100){res.innerHTML="Enter valid score (0-100)."; return;}
+  let grade=score>=90?"A":score>=80?"B":score>=70?"C":score>=60?"D":"F";
+  res.innerHTML=`You got an ${grade}`;
+}
+</script>
+
+</body>
+</html>

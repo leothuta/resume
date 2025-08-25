@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Change Calculator</title>
+<style>
+body{font-family:'Segoe UI',Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:linear-gradient(135deg,#74ABE2,#5563DE);color:#333;}
+.container{background:white;padding:25px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);width:360px;text-align:center;}
+h2{margin-bottom:20px;color:#222;}
+button{padding:12px 20px;margin:8px;border:none;border-radius:8px;cursor:pointer;width:80%;background-color:#4a63e7;color:white;}
+button:hover{background-color:#3a50c9;}
+input{padding:10px;margin:8px 0;width:80%;border-radius:6px;border:1px solid #ccc;text-align:center;}
+#changeResult{margin-top:15px;font-weight:bold;min-height:20px;color:#444;list-style:none;padding:0;text-align:left;}
+#changeResult li{margin-bottom:6px;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Calculate Change</h2>
+  <label>Enter Amount:</label><br>
+  <input type="number" id="amountInput" min="0" placeholder="e.g. 987"><br>
+  <button onclick="calculateChange()">Submit</button>
+  <ul id="changeResult"></ul>
+  <a href="index.html"><button>⬅ Back</button></a>
+</div>
+
+<script>
+function calculateChange(){
+  let amount=parseInt(document.getElementById('amountInput').value);
+  let res=document.getElementById('changeResult');
+  res.innerHTML='';
+  if(isNaN(amount)||amount<0){res.innerHTML='<li>Enter positive number.</li>'; return;}
+  const denominations=[500,100,50,20,1];
+  denominations.forEach(d=>{
+    const c=Math.floor(amount/d);
+    if(c>0){res.innerHTML+=`<li>${c} of ฿${d}</li>`;amount%=d;}
+  });
+}
+</script>
+
+</body>
+</html>
